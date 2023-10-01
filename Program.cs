@@ -14,13 +14,9 @@
         // ----------------- FUNCTION MAIN -------------------------------------------------------
         static void Main(string[] args)
         {
-
             empezarJuego();
-
             logicaDelJuego();
-
-            Console.ReadLine(); 
-
+            Console.ReadLine();
         }
 
         // ----------------- TABLERO VISUAL ---------------------------------------------------------
