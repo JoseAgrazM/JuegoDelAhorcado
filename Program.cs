@@ -15,7 +15,7 @@ namespace Ahorcado_Juego
         private static string palabra = "";
         private static string palabraEnBlanco = "";
         private static HashSet<string> palabrasUsadas = new HashSet<string>();
-        private static Stack<char> letrasErroneas = new Stack<char>();
+        private static List<char> letrasErroneas = new List<char>();
         
 
 
@@ -24,7 +24,7 @@ namespace Ahorcado_Juego
         {
             
             palabra = palabraAleatoria();
-            palabraEnBlanco = new string('↑', palabra.Length);
+            palabraEnBlanco = new string('▪', palabra.Length);
 
             empezarJuego();
             logicaDelJuego();
@@ -140,7 +140,6 @@ namespace Ahorcado_Juego
         {
             char[] palabraEnBlancoArray = palabraEnBlanco.ToCharArray();
 
-            bool letraEncontrada = false;
 
             for (int i = 0; i < palabra.Length; i++)
             {
@@ -148,16 +147,9 @@ namespace Ahorcado_Juego
                 if (palabra[i] == letra)
                 {
                     palabraEnBlancoArray[i] = letra;
-                    letraEncontrada = true;
                 }
             }
 
-            if (!letraEncontrada)
-            {
-                letrasErroneas.Push(letra);
-            }
-
-            
             return new string (palabraEnBlancoArray);
         }
 
@@ -167,17 +159,7 @@ namespace Ahorcado_Juego
         {
             if (letrasErroneas.Count >= 0)
             {
-                var letrasErroneasComoString = new List<string>();
-                foreach (char letra in letrasErroneas)
-                {
-                    letrasErroneasComoString.Add(letra.ToString());
-                }
-
-                Console.WriteLine("Letras incorrectas: " + string.Join(", ", letrasErroneasComoString));
-            }
-            else
-            {
-                Console.WriteLine("");
+                Console.WriteLine("Letras incorrectas: " + string.Join(", ", letrasErroneas));
             }
         }
 
@@ -194,7 +176,7 @@ namespace Ahorcado_Juego
                 Console.Clear();
                 intentosFallidos = 0;
                 palabra = palabraAleatoria();
-                palabraEnBlanco = new string('↑', palabra.Length);
+                palabraEnBlanco = new string('▪', palabra.Length);
 
                 partidaEnJuego = true;
                 empezarJuego();
@@ -241,7 +223,7 @@ namespace Ahorcado_Juego
 
                     Console.WriteLine();
 
-                    if (!palabraEnBlanco.Contains('↑'))
+                    if (!palabraEnBlanco.Contains('▪'))
                     {
                         Console.WriteLine();
                         Console.WriteLine("¡GANASTE!");
@@ -253,6 +235,9 @@ namespace Ahorcado_Juego
                 else
                 {
                     intentosFallidos++;
+
+                    letrasErroneas.Add(letra);
+
                     Console.Clear();
                     juegoEnCurso();
 
