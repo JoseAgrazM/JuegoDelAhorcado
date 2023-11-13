@@ -178,6 +178,8 @@ namespace Ahorcado_Juego
                 palabra = palabraAleatoria();
                 palabraEnBlanco = new string('▪', palabra.Length);
 
+                letrasErroneas.RemoveAll(item => true);                     // Elimina las letras incorrectas en cada partida.
+
                 partidaEnJuego = true;
                 empezarJuego();
             }
